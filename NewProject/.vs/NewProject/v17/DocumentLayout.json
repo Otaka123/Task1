@@ -1,0 +1,304 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\NewProject1\\NewProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6BB3DBFF-3AA1-45A4-BD12-92120E1526C4}|..\\Infrastructure\\Infrastructure.csproj|d:\\newproject1\\infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F85B2D02-631E-4E42-806D-E99525F5DB8F}|..\\Application\\Application.csproj|d:\\newproject1\\application\\services\\otp\\otpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\views\\purchaseorder\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:views\\purchaseorder\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\views\\purchaseorder\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:views\\purchaseorder\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\views\\shared\\_mainlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:views\\shared\\_mainlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\controllers\\signaturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:controllers\\signaturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\controllers\\purchaseordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:controllers\\purchaseordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\extensions\\serviceextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:extensions\\serviceextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\extensions\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:extensions\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\views\\purchaseorder\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:views\\purchaseorder\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|d:\\newproject1\\newproject\\wwwroot\\css\\adminstyle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B5AB7E05-4E1F-4A09-A407-FA5D4D90C9B2}|NewProject.csproj|solutionrelative:wwwroot\\css\\adminstyle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\NewProject1\\Infrastructure\\Migrations\\20251127110458_Joptitle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BB3DBFF-3AA1-45A4-BD12-92120E1526C4}|..\\Infrastructure\\Infrastructure.csproj|d:\\newproject1\\infrastructure\\identity\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1749B47B-560A-49E1-A74D-C89254814A09}|..\\Domain\\Domain.csproj|d:\\newproject1\\domain\\dtos\\purchase\\viewpurchaseorderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\NewProject1\\NewProject\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-27T12:07:12.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_MainLayout.cshtml",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Views\\Shared\\_MainLayout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_MainLayout.cshtml",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Views\\Shared\\_MainLayout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_MainLayout.cshtml",
+              "ViewState": "AgIAACYBAAAAAAAAAAAswEUBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-27T11:46:43.525Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ServiceExtensions.cs",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Extensions\\ServiceExtensions.cs",
+              "RelativeDocumentMoniker": "Extensions\\ServiceExtensions.cs",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Extensions\\ServiceExtensions.cs",
+              "RelativeToolTip": "Extensions\\ServiceExtensions.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAA9wFMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:43:07.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Class.cs",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Extensions\\Class.cs",
+              "RelativeDocumentMoniker": "Extensions\\Class.cs",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Extensions\\Class.cs",
+              "RelativeToolTip": "Extensions\\Class.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:42:47.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:31:04.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20251127110458_Joptitle.cs",
+              "DocumentMoniker": "D:\\NewProject1\\Infrastructure\\Migrations\\20251127110458_Joptitle.cs",
+              "RelativeDocumentMoniker": "..\\Infrastructure\\Migrations\\20251127110458_Joptitle.cs",
+              "ToolTip": "D:\\NewProject1\\Infrastructure\\Migrations\\20251127110458_Joptitle.cs",
+              "RelativeToolTip": "..\\Infrastructure\\Migrations\\20251127110458_Joptitle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:04:58.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Views\\PurchaseOrder\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\PurchaseOrder\\Create.cshtml",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Views\\PurchaseOrder\\Create.cshtml",
+              "RelativeToolTip": "Views\\PurchaseOrder\\Create.cshtml",
+              "ViewState": "AgIAAFQBAAAAAAAAAAAwwIIBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-27T11:00:27.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Admin.cs",
+              "DocumentMoniker": "D:\\NewProject1\\Infrastructure\\Identity\\Admin.cs",
+              "RelativeDocumentMoniker": "..\\Infrastructure\\Identity\\Admin.cs",
+              "ToolTip": "D:\\NewProject1\\Infrastructure\\Identity\\Admin.cs",
+              "RelativeToolTip": "..\\Infrastructure\\Identity\\Admin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:50:44.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\NewProject1\\Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "..\\Infrastructure\\Data\\AppDbContext.cs",
+              "ToolTip": "D:\\NewProject1\\Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "..\\Infrastructure\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAADsAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:49:22.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AdminStyle.css",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\wwwroot\\css\\AdminStyle.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\AdminStyle.css",
+              "ToolTip": "D:\\NewProject1\\NewProject\\wwwroot\\css\\AdminStyle.css",
+              "RelativeToolTip": "wwwroot\\css\\AdminStyle.css",
+              "ViewState": "AgIAAISyAAAAAAAAAAAAAJyyAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-27T09:44:53.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ViewPurchaseOrderDto.cs",
+              "DocumentMoniker": "D:\\NewProject1\\Domain\\DTOS\\Purchase\\ViewPurchaseOrderDto.cs",
+              "RelativeDocumentMoniker": "..\\Domain\\DTOS\\Purchase\\ViewPurchaseOrderDto.cs",
+              "ToolTip": "D:\\NewProject1\\Domain\\DTOS\\Purchase\\ViewPurchaseOrderDto.cs",
+              "RelativeToolTip": "..\\Domain\\DTOS\\Purchase\\ViewPurchaseOrderDto.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAwwBYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:36:21.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAgwC4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:37:10.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PurchaseOrderController.cs",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Controllers\\PurchaseOrderController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PurchaseOrderController.cs",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Controllers\\PurchaseOrderController.cs",
+              "RelativeToolTip": "Controllers\\PurchaseOrderController.cs",
+              "ViewState": "AgIAAOkBAAAAAAAAAAAwwNEBAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:37:10.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SignatureController.cs",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Controllers\\SignatureController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SignatureController.cs",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Controllers\\SignatureController.cs",
+              "RelativeToolTip": "Controllers\\SignatureController.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAmwIwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:37:10.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OTPService.cs",
+              "DocumentMoniker": "D:\\NewProject1\\Application\\Services\\OTP\\OTPService.cs",
+              "RelativeDocumentMoniker": "..\\Application\\Services\\OTP\\OTPService.cs",
+              "ToolTip": "D:\\NewProject1\\Application\\Services\\OTP\\OTPService.cs",
+              "RelativeToolTip": "..\\Application\\Services\\OTP\\OTPService.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAAIwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:37:10.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Views\\PurchaseOrder\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\PurchaseOrder\\Details.cshtml",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Views\\PurchaseOrder\\Details.cshtml",
+              "RelativeToolTip": "Views\\PurchaseOrder\\Details.cshtml",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAAAEwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-27T09:36:18.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\NewProject1\\NewProject\\Views\\PurchaseOrder\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\PurchaseOrder\\Index.cshtml",
+              "ToolTip": "D:\\NewProject1\\NewProject\\Views\\PurchaseOrder\\Index.cshtml",
+              "RelativeToolTip": "Views\\PurchaseOrder\\Index.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAEIAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-27T09:29:51.062Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

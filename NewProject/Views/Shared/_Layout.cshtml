@@ -1,0 +1,75 @@
+﻿@using Application.Common
+@inject IAppLocalizer Localizer
+<!DOCTYPE html>
+<!-- تغيير lang ليكون ديناميكي -->
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="~/assets/images/logo2.png" />
+    <link rel="shortcut icon" href="~/assets/images/logo2.png" type="image/x-icon" />
+
+    <!-- تحميل المكتبات الأساسية أولاً -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- تحميل Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- تحميل المكتبات الأخرى من CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.1.2/ionicons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <!-- تحميل ملفات التطبيق -->
+    <link rel="stylesheet" href="~/css/skin_color.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/inline_styles.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/AdminStyle.css" asp-append-version="true">
+
+
+</head>
+<body>
+
+
+    @RenderBody()
+
+
+    <div class="footer-copyright ">
+        <div class="container pl-0 pt-2">
+            <div class="row ">
+                <div class="col-lg-7 col-12 d-flex  justify-content-lg-start justify-content-center">
+                    <p>
+                        <a href="https://esmart-vision.com/">@Localizer["Copyright"] ©2025  @Localizer["AllRightsReserved"]  @Localizer["SmartVisionITSolutions"]</a>
+                    </p>
+                </div>
+                <div class="col-lg-5 col-12 d-flex justify-content-lg-end justify-content-center">
+                    <p style="display: inline-flex; margin-top: 3px; ">@Localizer["PoweredBy"] </p>
+                    <a href="https://esmart-vision.com/" target="_blank">
+                        <img src="~/images/foter_logo_co.png" style="width:99px" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- تحميل المكتبات بالترتيب الصحيح -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- تحميل TinyMCE من CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+
+    <!-- تحميل المكتبات الأخرى -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- تحميل مكتبات التطبيق -->
+    <script src="~/js/vendors.min.js"></script>
+    <script src="~/js/template.js"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

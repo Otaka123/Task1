@@ -1,0 +1,766 @@
+﻿/* إصلاحات شاملة لـ RTL */
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Base RTL margins to mirror LTR layout (mirror of AdminStyle.css defaults) */
+.rtl .content-wrapper {
+    -moz-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    -webkit-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    margin-right: 265px;
+    /* mirror LTR margin-left */
+    z-index: 820;
+}
+
+.rtl .main-footer {
+    -moz-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    -webkit-transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+    z-index: 820;
+    margin-right: 265px;
+    /* mirror LTR margin-left */
+}
+
+@media (min-width: 768px) {
+
+    /* When collapsed on desktop, push the RTL sidebar out to the right */
+    .rtl.sidebar-collapse .main-sidebar {
+        -webkit-transform: translateX(21.29rem);
+        -ms-transform: translateX(21.29rem);
+        -o-transform: translateX(21.29rem);
+        transform: translateX(21.29rem);
+    }
+
+    /* And remove the content right margin so content fills the space */
+    .rtl.sidebar-collapse .content-wrapper,
+    .rtl.sidebar-collapse .main-footer {
+        margin-right: 0;
+    }
+}
+    /* ========== إصلاح الـ Sidebar ========== */
+    .rtl .main-sidebar {
+        right: 0;
+        left: auto;
+        box-shadow: -2px 2px 2px 1px rgb(0 0 0 / 20%);
+    }
+
+    .rtl .sidebar {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .rtl .sidebar-menu {
+        padding-right: 0;
+    }
+
+        .rtl .sidebar-menu .treeview-menu {
+            padding-right: 20px;
+            padding-left: 0;
+            color: #4b4b4b;
+        }
+
+    /* ========== إصلاح تمدد الـ Navbar ========== */
+    .rtl .navbar {
+        direction: rtl;
+        margin-right: 270px !important;
+            margin-left: 15px !important;
+            width: calc(100% - 285px) !important;
+            right: 0 !important;
+    }
+
+    .rtl .main-header {
+        right: 0;
+        left: auto;
+        width: calc(100% - 15px) !important;
+    }
+
+        .rtl .main-header .navbar {
+            width: calc(100% - 285px) !important;
+                margin-right: 270px !important;
+                margin-left: 15px !important;
+        }
+
+    .rtl .navbar-custom-menu {
+        left: 10px;
+        right: auto;
+    }
+
+    .rtl .navbar-nav {
+        float: right;
+    }
+
+    .rtl .navbar .nav-item {
+        float: right;
+    }
+
+    /* ========== إصلاح المحتوى الرئيسي ========== */
+    .rtl .content-wrapper {
+        margin-right: 270px !important;
+        margin-left: 15px !important; /* إضافة margin من اليسار */
+        width: calc(100% - 285px) !important; /* تعديل العرض */
+    }
+
+    .rtl .main-footer {
+        margin-right: 270px !important;
+        margin-left: 15px !important; /* إضافة margin من اليسار */
+        width: calc(100% - 285px) !important; /* تعديل العرض */
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* ========== إصلاح ترتيب الأيقونات ========== */
+    .rtl .sidebar-menu li > a {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row-reverse;
+        padding: 12px 15px 12px 5px !important;
+        text-align: right;
+        position: relative;
+        font-weight: 500;
+        opacity: 0.9;
+        white-space: nowrap;
+        line-height: 25px;
+        font-size: 13px;
+    }
+
+        .rtl .sidebar-menu li > a > i {
+            float: none !important;
+            order: 2;
+            margin-left: 0 !important;
+            margin-right: 8px !important;
+            padding: 0 !important;
+        }
+
+        .rtl .sidebar-menu li > a > span {
+            order: 1;
+            flex: 1;
+            text-align: right;
+        }
+
+    /* إصلاح القوائم الفرعية */
+    .rtl .treeview-menu > li > a {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: row-reverse;
+        padding: 5px 5px 5px 10px !important;
+        text-align: right;
+        font-size: 13px;
+        position: relative;
+    }
+
+        .rtl .treeview-menu > li > a > i {
+            float: none !important;
+            order: 2;
+            margin-left: 8px !important;
+            margin-right: 8px !important;
+            padding: 0 !important;
+            width: auto !important;
+        }
+
+        .rtl .treeview-menu > li > a > span {
+            order: 1;
+            flex: 1;
+            text-align: right;
+        }
+
+    /* ========== إصلاح الأسهم ========== */
+    .rtl .pull-right-container {
+        float: left !important;
+        left: 10px;
+        right: auto !important;
+    }
+
+    .rtl .fa-angle-right:before {
+        content: "\f104" !important;
+    }
+
+    .rtl .treeview.menu-open > a > .pull-right-container > .fa-angle-right {
+        transform: rotate(-90deg);
+    }
+
+    /* ========== إصلاحات أخرى ========== */
+    .rtl .logo-box {
+        justify-content: right;
+    }
+
+    .rtl .left-sperater {
+        margin: 10px 15px 10px 0;
+    }
+
+    .rtl .dropdown-menu {
+        text-align: right;
+        left: auto !important;
+        right: 0 !important;
+    }
+
+    .rtl .app-menu {
+        right: auto;
+        left: 0;
+    }
+
+/* ========== إصلاح الـ Media Queries ========== */
+@media (max-width: 767px) {
+    .rtl .content-wrapper,
+    .rtl .main-footer,
+    .rtl .navbar,
+    .rtl .main-header .navbar {
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .rtl .main-sidebar {
+        transform: translateX(100%);
+    }
+
+    .rtl .sidebar-open .main-sidebar {
+        transform: translateX(0);
+    }
+
+    .rtl .sidebar-open .content-wrapper,
+    .rtl .sidebar-open .main-footer,
+    .rtl .sidebar-open .navbar {
+        transform: translateX(-250px);
+    }
+}
+
+/* Desktop: ensure sidebar-collapse mirrors LTR behavior for RTL layouts */
+@media (min-width: 768px) {
+    .rtl.sidebar-collapse .main-sidebar {
+        -webkit-transform: translateX(21.29rem);
+        -ms-transform: translateX(21.29rem);
+        -o-transform: translateX(21.29rem);
+        transform: translateX(21.29rem);
+    }
+
+    .rtl.sidebar-collapse .content-wrapper,
+    .rtl.sidebar-collapse .main-footer {
+        margin-right: 0 !important;
+        margin-left: 15px !important;
+        width: auto !important;
+    }
+
+    .rtl.sidebar-collapse .main-header .navbar,
+    .rtl.sidebar-collapse .navbar {
+        margin-right: 0 !important;
+        margin-left: 15px !important;
+            width: calc(100% - 15px) !important;
+    }
+}
+
+/* Mirror .sidebar-mini.sidebar-collapse for RTL so mini/collapsed sidebar behaves like LTR */
+@media (min-width: 768px) {
+    .rtl.sidebar-mini.sidebar-collapse .content-wrapper {
+        margin-right: 65px !important;
+        margin-left: 15px !important;
+        z-index: 840;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .main-footer {
+        margin-right: 60px !important;
+        margin-left: 15px !important;
+        z-index: 840;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .right-side {
+        margin-right: 80px !important;
+        z-index: 840;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .main-sidebar {
+        -webkit-transform: translate(0, 0) !important;
+        -ms-transform: translate(0, 0) !important;
+        -o-transform: translate(0, 0) !important;
+        transform: translate(0, 0) !important;
+        width: 60px !important;
+        z-index: 850;
+        left: auto !important;
+        right: 0 !important;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .main-sidebar .logo-box {
+        width: 60px !important;
+        margin: 0 !important;
+        -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li {
+        position: relative;
+        padding: 0px 10px;
+        margin: 5px 0px 0px;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a {
+        margin-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a i {
+        margin-left: 0;
+        margin-right: 5px;
+        display: block;
+            text-align: center;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>span {
+        display: none !important;
+        -webkit-transform: translateZ(0);
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>.treeview-menu {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px;
+        display: none !important;
+        -webkit-transform: translateZ(0);
+    }
+/* RTL Hover functionality for sidebar-mini collapse */
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right) {
+    display: block !important;
+    position: absolute;
+    width: 21.29rem;
+    right: 54px !important;
+    left: auto !important;
+    text-align: right;
+    top: 0;
+    margin-right: -15px !important;
+    margin-left: 0 !important;
+    padding: 14px 30px 14px 0px !important;
+    background-color: inherit;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+    position: relative !important;
+    float: left !important;
+    width: auto !important;
+    right: 250px !important;
+    left: auto !important;
+    top: -16px !important;
+    z-index: 900;
+    background-color: transparent !important;
+    box-shadow: none;
+}
+
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+    display: block !important;
+    position: absolute;
+    width: 21.29rem;
+    right: 64px !important;
+    left: auto !important;
+    top: 0;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    background-color: #fff;
+    direction: rtl;
+    text-align: right;
+}
+
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu:after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    right: -5px !important;
+    left: auto !important;
+    top: 20px;
+}
+
+/* RTL sidebar header in collapsed mode */
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu li.header {
+    visibility: hidden;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    padding: 0;
+    -webkit-transform: translateZ(0);
+}
+
+/* RTL navbar adjustments when sidebar is mini-collapsed */
+.rtl.sidebar-mini.sidebar-collapse .navbar,
+.rtl.sidebar-mini.sidebar-collapse .main-header .navbar {
+    margin-right: 60px !important;
+    margin-left: 15px !important;
+    width: calc(100% - 75px) !important;
+}
+
+/* RTL sidebar smooth transitions */
+.rtl .main-sidebar {
+    -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+.rtl .content-wrapper,
+.rtl .main-footer,
+.rtl .navbar {
+    -webkit-transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    -moz-transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    -o-transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+/* RTL user profile adjustments in mini collapsed mode */
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li.user-profile {
+    overflow: hidden;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    display: none;
+}
+
+/* RTL treeview menu positioning fixes */
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu>li>a {
+    padding-right: 20px !important;
+    padding-left: 10px !important;
+    text-align: right;
+}
+
+/* RTL collapsed sidebar icons centering */
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>i {
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 16px !important;
+    line-height: 40px !important;
+}
+
+/* RTL hover menu link title positioning */
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu>.link-title {
+    display: block !important;
+    padding: 8px 20px 8px 10px !important;
+    font-weight: bold;
+    text-align: right;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+}
+
+/* RTL ensure proper z-index for hover menus */
+.rtl.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover {
+    z-index: 1000;
+    position: relative;
+}
+}
+
+/* Ensure the mini logo shows in RTL when sidebar is condensed */
+@media (min-width: 768px) {
+    .rtl.sidebar-mini.sidebar-collapse .main-sidebar .logo>.logo-mini {
+        display: inline-block !important;
+        text-align: center !important;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .main-sidebar .logo>.logo-mini img {
+        display: block !important;
+        max-width: 40px !important;
+        height: auto !important;
+        margin: 6px auto !important;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .main-sidebar .logo>.logo-lg {
+        display: none !important;
+    }
+
+    .rtl.sidebar-mini.sidebar-collapse .main-sidebar .logo {
+        padding: 0 !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+/* RTL menu items hover and active states in collapsed mode */
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>i {
+    margin: 0 !important;
+    order: 1;
+}
+
+/* Hide arrows and spans in collapsed mode */
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>.pull-right-container {
+    display: none !important;
+}
+
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a .fa-angle-right,
+.rtl.sidebar-mini.sidebar-collapse .sidebar-menu>li>a .fa-angle-left {
+    display: none !important;
+}
+}
+
+
+
+/* ✅ تعديل Toastr في اللغة العربية (RTL) */
+.rtl .toast {
+    direction: rtl;
+    text-align: right;
+}
+
+.rtl .modal-header .btn-close {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.rtl .toast-message {
+    padding-right: 10px;
+    padding-left: 35px;
+}
+
+.rtl .toast-success::before,
+.rtl .toast-error::before,
+.rtl.toast-info::before,
+.rtl .toast-warning::before {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+
+
+
+
+/* ========== إصلاح الخط العمودي للـ treeview في RTL ========== */
+.rtl .sidebar-menu > li.treeview > .treeview-menu::before {
+    position: absolute;
+    content: "";
+    width: 2px;
+    height: 0;
+    background: #e1f4ff;
+    top: -10px;
+    right: 30px;
+    left: auto;
+    -webkit-transition: height 0.5s;
+    transition: height 0.5s;
+    height: calc(100% - 8px);
+    z-index: 1;
+}
+
+/* ========== إصلاح الخط المنحني للروابط في RTL ========== */
+.rtl .treeview-menu > li > a::after {
+    position: absolute;
+    content: "";
+    top: 12%;
+    width: 13px;
+    height: 15px;
+    border-bottom-right-radius: 8px; /* الزاوية من اليمين */
+    border-top-right-radius: 0;
+    border-right: 2px solid #e1f4ff; /* الخط العمودي من اليمين */
+    border-bottom: 2px solid #e1f4ff;
+    border-left: none;
+    border-top: none;
+    right: 10px; /* تداخل مع الخط العمودي: 20px - 7px = 13px */
+    left: auto;
+    z-index: 2;
+}
+
+/* ========== إضافة الدائرة على جهة اليسار في RTL ========== */
+.rtl .treeview-menu > li > a::before {
+    position: absolute;
+    content: "";
+    top: 12%;
+    width: 6px;
+    height: 6px;
+    background: #e1f4ff;
+    border-radius: 50%;
+    left: auto; /* الدائرة على جهة اليسار */
+    right:20px;
+    z-index: 3;
+    margin-top:4px;
+}
+
+/* ========== تحسينات إضافية للـ RTL ========== */
+.rtl .treeview-menu {
+    /*padding-right: 30px !important;
+    padding-left: 35px !important;*/ /* مساحة إضافية من اليسار للدائرة */
+}
+
+    .rtl .treeview-menu > li > a {
+        position: relative;
+        padding-right: 25px !important;
+        padding-left: 40px !important; /* مساحة أكبر من اليسار للدائرة */
+    }
+
+    /* ========== إصلاح للعناصر النشطة في RTL ========== */
+    .rtl .treeview-menu > li.active > a::after {
+        border-right-color: #e1f4ff;
+        border-bottom-color: #e1f4ff;
+    }
+
+    .rtl .treeview-menu > li.active > a::before {
+        background: #e1f4ff;
+    }
+
+/*========== تأثيرات hover للـ RTL ==========*/
+.rtl .sidebar-menu > li.treeview > .treeview-menu::before:hover {
+    color: #e1f4ff;
+}
+.rtl .treeview-menu > li > a:hover::after {
+    border-right-color: #e1f4ff;
+    border-bottom-color: #e1f4ff;
+    transition: all 0.3s ease;
+}
+
+.rtl .treeview-menu > li > a:hover::before {
+    background: #e1f4ff;
+    transition: all 0.3s ease;
+}
+
+    /* ========== تحسين التوسيط للدائرة ========== */
+    .rtl .treeview-menu > li > a::before {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .rtl .treeview-menu > li > a::after {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+/* ========== إصلاح للشاشات الصغيرة في RTL ========== */
+@media (max-width: 767px) {
+    .rtl .sidebar-menu > li.treeview > .treeview-menu::before {
+        right: 15px;
+    }
+
+    .rtl .treeview-menu > li > a::after {
+        right: 8px; /* تداخل أقل في الشاشات الصغيرة */
+        width: 11px;
+        height: 13px;
+    }
+
+    .rtl .treeview-menu > li > a::before {
+        left: 10px; /* تقليل المسافة في الشاشات الصغيرة */
+        width: 5px;
+        height: 5px;
+    }
+
+    .rtl .treeview-menu {
+        padding-right: 20px !important;
+        padding-left: 25px !important;
+    }
+
+        .rtl .treeview-menu > li > a {
+            padding-right: 20px !important;
+            padding-left: 30px !important;
+        }
+}
+.slider_content.text-right {
+    margin-right: 0;
+    margin-left: auto;
+    padding-right: 50px;
+    padding-left: 0;
+}
+
+.slider_content.text-left {
+    margin-left: 0;
+    margin-right: auto;
+    padding-left: 50px;
+    padding-right: 0;
+}
+
+.rtl .theme-btn.one svg {
+    transform: rotate(180deg);
+    margin-right: 8px;
+    margin-left: 0;
+}
+
+/* ضبط المسافات للزر */
+.theme-btn.one {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.rtl .theme-btn.one {
+    flex-direction: row-reverse;
+}
+
+.footer-copyright {
+    width: calc(100% - 283x) !important;
+}
+/* تصميم custom checkboxes بدون iCheck */
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.permission-item label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+    .permission-item label:hover {
+        background-color: #e9ecef;
+    }
+
+.permission-item input:checked + label {
+    background-color: #e7f3ff;
+    font-weight: bold;
+}
+.content .dataTables_info {
+    padding-right: 0px;
+    display:flex;
+    align-items:start;
+
+}
+.dataTables_info{
+    margin-bottom:30px;
+}
+.cke_editable {
+    direction: rtl;
+    text-align: right;
+}
+
+    /* تحسينات للعربية */
+    .cke_editable p,
+    .cke_editable div,
+    .cke_editable h1,
+    .cke_editable h2,
+    .cke_editable h3 {
+        text-align: right;
+        line-height: 1.6;
+    }
+
+/* تحسين المسافات للعربية */
+.cke_editable {
+    letter-spacing: 0;
+    word-spacing: 0.1em;
+}
+
+
+.btn-equal {
+    min-width: 85px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+    .btn-equal i {
+        margin-right: 5px;
+        margin-left: 5px;
+    }

@@ -1,0 +1,747 @@
+﻿@model Domain.DTOS.Purchase.ViewPurchaseOrderDto
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div id="page-container" class="page-container flex-grow-1">
+
+    <style>
+        /* الأنماط تبقى كما هي */
+        label {
+            color: #fff;
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        .form-control:read-only{
+            background-color:transparent!important;
+        }
+        .overflow-table {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+            .overflow-table::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            .overflow-table::-webkit-scrollbar-thumb {
+                background-color: green;
+                border-radius: 2px;
+            }
+
+            .overflow-table::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+
+        .container {
+            width: 100% !important;
+            box-shadow: none !important;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            color: #000 !important;
+            box-shadow: none;
+            border: 1px #000 solid !important;
+        }
+
+        .form-control:disabled {
+            border: 0;
+            font-size: 15px;
+            color: #000;
+        }
+
+        .signature-trigger {
+            transition: all 0.3s ease;
+        }
+
+            .signature-trigger:hover {
+                background-color: #f8f9fa;
+                border-radius: 4px;
+            }
+
+        .otp-digit {
+            font-weight: bold;
+        }
+
+        @@media print {
+            html, body {
+                width: 100%;
+                overflow: visible !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+            }
+
+            img {
+                max-width: 100% !important;
+            }
+
+            * {
+                /* border: 0 !important; */
+                box-shadow: none !important;
+            }
+
+            .overflow-table {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            .print-none,
+            .custom-navbar {
+                display: none !important;
+            }
+
+            body {
+                background: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 12px;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #printArea {
+                width: 800px !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+            }
+
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .flex-fill {
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
+            }
+
+            table {
+                outline: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                table-layout: fixed !important;
+                box-shadow: none !important;
+                border-collapse: collapse !important;
+            }
+
+            th, td {
+                background-color: #fff !important;
+                border: 1px solid #000 !important;
+                padding: 1px !important;
+                color: #000 !important;
+            }
+
+            input {
+                border: none;
+                box-shadow: none !important;
+                background: transparent !important;
+                -webkit-appearance: none;
+            }
+        }
+
+        .otp-digit {
+            direction: ltr !important;
+            text-align: center !important;
+        }
+
+        @@media print {
+    /* إعدادات الصفحة */
+   @@page {
+        margin: 0.5cm;
+        size: A4;
+    }
+    
+   @@page :first {
+        margin: 0.5cm;
+    }
+    
+    /* إعادة تعيين كامل */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    html, body {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        overflow: visible !important;
+    }
+    
+    /* منطقة الطباعة */
+    #printArea {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-before: avoid !important;
+        page-break-after: avoid !important;
+    }
+    
+    /* منع الصفحات الفارغة */
+    .page-break {
+        page-break-before: always;
+    }
+    
+    /* التأكد من أن الجدول لا ينقسم */
+    table {
+        page-break-inside: avoid !important;
+    }
+    
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto !important;
+    }
+}
+    </style>
+
+    <!-- Breadcrumb -->
+    <div class="row my-3 d-flex justify-content-between align-items-center print-none ">
+        <div class="col-md-6 d-flex align-items-center flex-wrap justify-content-strat">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 py-2 flex-nowrap">
+                    <li class="breadcrumb-item"><a href="#"></a></li>
+
+                    <li class="breadcrumb-item"><a href="#">وحدة أوامر الشراء </a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="PurchaseOrder">قائمة أوامر الشراء</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Details" asp-controller="PurchaseOrder">طلب شراء محلى</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-end gap-1 flex-wrap">
+
+        @if(Model.IsSigned)
+        {
+                <button onclick="printDiv('printArea')" class="print-btn btn btn-success btn-sm">
+                    <i class="fa fa-print me-1"></i>طباعة
+                </button>
+
+            
+        }
+            <a class="btn-cancel-search btn-sm btn" href="/Admin/PurchaseOrder">
+                رجوع <i class="fa-solid fa-arrow-left me-1"></i>
+            </a>
+        </div>
+
+  
+    </div>
+
+    <div class="card">
+        <div class="container" id="printArea">
+            <input type="hidden" data-val="true" data-val-required="The Id field is required." id="Id" name="Id" value="@Model.Id">
+            <input type="hidden" id="PurchaseOrderCode" name="PurchaseOrderCode" value="@Model.PurchaseOrderCode">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap border-black  border-bottom p-3  mb-3">
+                <div class="d-flex justify-content-between align-items-center flex-fill">
+                    <div style="text-align:center">
+                        <h5 style="color:#6d6058; font-size: 16px;font-weight: 700;">الإمارات العربية المتحدة</h5>
+                        <h5 style="color:#6d6058; font-size: 16px;font-weight: 700;">حكومة الفجيرة</h5>
+                        <h5 style="color:#000000; font-size: 16px;font-weight: 700;">نادي الفجيرة العلمي</h5>
+                    </div>
+                </div>
+                <div class="flex-fill text-center">
+                    <center>
+                        <img src="~/images/logo55.jpeg" alt="نادى الفجيره العلمى" style="width:75px;">
+                    </center>
+                </div>
+                <div class="d-flex justify-content-end align-items-center flex-fill">
+                    <div style="text-align:center">
+                        <h5 style="color:#6d6058; font-size: 16px;font-weight: 700;">UNITED ARAB EMIRATES</h5>
+                        <h5 style="color:#6d6058; font-size: 16px;font-weight: 700;">GOVT. OF FUJAIRAH</h5>
+                        <h5 style="color:#000000; font-size: 16px;font-weight: 700;">FUJAIRAH SCIENCE CLUB</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-0 d-flex flex-column align-items-center justify-content-center text-nowrap">
+
+                <!-- عنوان أمر الشراء -->
+                <div class="text-center fs-4 py-1 fw-bold" style="width: 50%;">
+                    طلب شراء محلى
+                </div>
+
+                <!-- رقم أمر الشراء -->
+                <div class="text-center fs-4 py-1 fw-bold mb-2" style="width: 35%; white-space: nowrap;">
+                    <label for="PurchaseOrderCode2" class="form-label fw-semibold fs-5" style="color:#000000 !important;">
+                        رقم أمر الشراء
+                    </label>
+                    <input id="PurchaseOrderCode2"
+                           value="@Model.PurchaseOrderCode"
+                           disabled readonly
+                           class="form-control mx-auto text-center"
+                           type="text"
+                           style="background-color:#eeeeee !important;
+                      border:0;
+                      color:#af1717 !important;
+                      width: 130px;
+                      padding: 0 10px;">
+                </div>
+            </div>
+
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-1 ">
+                <div class="d-flex justify-content-between align-items-center flex-fill">
+                    <div style="text-align:right" class="fs-5 text-black fw-semibold">
+                        التاريخ
+                    </div>
+                </div>
+                <div class="flex-fill text-center">
+                    <center>
+                        <input class="form-control" type="date" readonly style="border-bottom:1px dashed #ccc !important; border-right:0;border-left:0;border-top:0;text-align:center;" id="Date" name="Date" value="@Model.Date.ToString("yyyy-MM-dd")">
+                    </center>
+                </div>
+                <div class="d-flex justify-content-end align-items-center flex-fill">
+                    <div style="text-align:left" class="fs-5 text-black fw-semibold">
+                        Date
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                <div class="d-flex justify-content-between align-items-center flex-fill">
+                    <div style="text-align:right" class="fs-5 text-black fw-semibold">
+                        الى
+                    </div>
+                </div>
+                <div class="flex-fill text-center">
+                    <center>
+                        <input value="@Model.SupplierName" class="form-control" readonly style="border-bottom:1px dashed #ccc !important; border-right:0;border-left:0;border-top:0; text-align:center">
+                    </center>
+                </div>
+                <div class="d-flex justify-content-end align-items-center flex-fill">
+                    <div style="text-align:left" class="fs-5 text-black fw-semibold">
+                        to
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-table">
+                <table style="width:100%;  text-align:center; direction:ltr; color: #000 !important;" cellspacing="0" cellpadding="5" class="mb-3 table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;background-color:#fff !important; color: #000 !important;">رقم<br> No</th>
+                            <th style="background-color:#fff !important; color: #000 !important; width:46%;">البيان <br> Particulars</th>
+                            <th style="background-color:#fff !important; color: #000 !important;">الكميه<br> Qty</th>
+                            <th style="background-color:#fff !important; color: #000 !important;">السعر<br>Price</th>
+                            <th style="background-color:#fff !important; width: 10%; color: #000 !important;">الرقم الإجمالى <br> Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null && Model.Items.Any())
+                        {
+                            var counter = 1;
+                            foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>@counter</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Price.ToString("N2")</td>
+                                    <td>@((item.Quantity * item.Price).ToString("N2"))</td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center">لا توجد عناصر</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2" style="text-align: center;">الإجمالي Total</td>
+                            <td>@Model.TotalAmount.ToString("N2")</td>
+                        </tr>
+                        @if (Model.HasVAT)
+                        {
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2" style="text-align: center;"> % VAT 5 </td>
+                                <td> @Model.VATAmount.ToString("N2") </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td style="text-align: center;">@Model.ToWords()
+                            </td>
+                            <td colspan="2" style="text-align: center;">الإجمالي Total</td>
+                            <td> AED @Model.GrandTotal.ToString("N2") </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between gap-3 mt-3" style="direction: rtl;">
+                <div class="p-3 flex-fill" style="min-width: 48%; border: 1px solid #000 !important;">
+                    <div class="d-flex justify-content-between fw-semibold">
+                        <span>المستلم</span>
+                        <span>Received By</span>
+                    </div>
+
+                    <div class="mt-3 mb-2" style="border-bottom: 1px dotted #ccc !important; height: 22px; text-align:center;"></div>
+
+                    <div class="d-flex justify-content-between mt-3 fw-semibold">
+                        <span>التوقيع</span>
+                        <span>Signature</span>
+                    </div>
+
+                    <div class="mt-2 mb-3" style="border-bottom: 1px dotted #ccc !important; height: 22px;"></div>
+
+                    <div class="d-flex justify-content-between mt-3 fw-semibold">
+                        <span>التاريخ</span>
+                        <span>Date :</span>
+                    </div>
+
+                    <div class="mt-2" style="border-bottom: 1px dotted #ccc !important; height: 22px;"></div>
+                </div>
+
+                <div class="p-3 flex-fill" style="min-width: 48%; border: 1px solid #000 !important; ">
+                    <div class="d-flex justify-content-between fw-semibold">
+                        <span>خول من قبل</span>
+                        <span>Authorized By</span>
+                    </div>
+
+                    <div class="mt-3 mb-2" style="border-bottom: 1px dotted #ccc !important; height: 22px; text-align:center;">
+                        @Model.AuthorizedBy
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3 fw-semibold">
+                        <span>الوظيفة</span>
+                        <span>Designation</span>
+                    </div>
+
+                    <div class="mt-2 mb-3" style="border-bottom: 1px dotted #ccc !important; height: 22px; text-align:center;">
+                        @Model.Designation
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3 fw-semibold">
+                        <span>التوقيع</span>
+                        <span>Signature</span>
+                    </div>
+
+                    <div class="mt-2 d-flex align-items-center justify-content-center" style="border-bottom: 1px dotted #ccc !important; height: 22px;">
+                        <div id="signatureSection" class="signature-trigger" role="button" tabindex="0" style="cursor:pointer; min-height: 40px;">
+                            @if (Model.IsSigned)
+                            {
+                                <img src="@Model.SignaturePath" alt="Signature" style="max-height: 40px; max-width: 100px;">
+                                @* <div class="small text-muted">تم التوقيع بتاريخ: @Model.SignedDate?.ToString("yyyy/MM/dd HH:mm")</div> *@
+                            }
+                            else
+                            {
+                                <div class="small text-muted">انقر للتوقيع (سيتم إرسال OTP)</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4" style="direction: rtl; gap: 30px;">
+                <div class="flex-fill text-start" style="font-size: 15px; line-height: 1.8;">
+                    <strong>هام للموردين:</strong>
+                    <ol class="mt-2" style="padding-right: 20px;">
+                        <li>عدم التزويد بأي بضائع أو مواد إلا باستلام تفويض تحريرياً موقعاً من قبلنا.</li>
+                        <li>تعاد النسخة الثانية إلينا مع المستلم موضحاً عليها الأسعار.</li>
+                        <li>يرفق أصل الطلب مع أصل الفواتير موقعاً ومختوماً تمهيداً للسداد بعد توريد المواد المطلوبة.</li>
+                    </ol>
+                </div>
+                <div class="flex-fill text-end" style="font-size: 15px; line-height: 1.8; direction: ltr;">
+                    <strong>Important for funders:</strong>
+                    <ol class="mt-2" style="padding-left: 20px;">
+                        <li>Not to supply any goods or materials without receiving a written authorization signed by us.</li>
+                        <li>The second copies shall be returned to us with the recipient indicating the prices.</li>
+                        <li>The original application shall be attached with the original signed and stamped invoices in preparation for payment after supplying the required materials.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal لـ OTP فقط -->
+<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true" dir="ltr">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form id="otpForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="otpModalLabel">ادخل رمز OTP</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <input type="hidden" id="otpEntityId" name="id" value="@Model.Id">
+                <div class="modal-body text-center">
+                    <p>الرجاء إدخال رمز OTP المكون من 4 أرقام لتأكيد التوقيع.</p>
+                    <div class="d-flex justify-content-center gap-2" dir="ltr">
+                        <input inputmode="numeric" maxlength="1" class="form-control otp-digit text-center fs-4" style="width:60px;">
+                        <input inputmode="numeric" maxlength="1" class="form-control otp-digit text-center fs-4" style="width:60px;">
+                        <input inputmode="numeric" maxlength="1" class="form-control otp-digit text-center fs-4" style="width:60px;">
+                        <input inputmode="numeric" maxlength="1" class="form-control otp-digit text-center fs-4" style="width:60px;">
+                    </div>
+                    <div class="invalid-feedback text-center mt-2" style="display:none;">أدخل رمزًا صالحًا مكونًا من 4 أرقام.</div>
+
+                    <!-- معلومات التوقيع -->
+                    <div class="mt-3 p-2 border rounded bg-light">
+                        <small class="text-muted">
+                            <i class="fa fa-info-circle me-1"></i>
+                            سيتم استخدام توقيعك المسجل للتوقيع على أمر الشراء <strong>@Model.PurchaseOrderCode</strong>
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">تأكيد التوقيع</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        // تأكد من أن القيمة يتم تعيينها بشكل صحيح
+        let currentPurchaseOrderId = parseInt('@Model.Id');
+        let isOTPRequested = false;
+
+        console.log('Purchase Order ID:', currentPurchaseOrderId); // للتأكد من القيمة
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // طلب OTP مباشرة عند النقر على التوقيع
+            const signatureSection = document.getElementById('signatureSection');
+            if (signatureSection) {
+                signatureSection.addEventListener('click', async function() {
+                    if (!@Json.Serialize(Model.IsSigned)) {
+                        await requestOTP();
+                    }
+                });
+            }
+
+            // التعامل مع إرسال نموذج OTP
+            document.getElementById('otpForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await verifyOTP();
+            });
+
+            // إعداد إدخال OTP
+            setupOTPInputs();
+        });
+
+        // دالة طلب OTP مباشرة
+        async function requestOTP() {
+            try {
+                // تأكد من أن currentPurchaseOrderId له قيمة صحيحة
+                if (!currentPurchaseOrderId || currentPurchaseOrderId === 0) {
+                    showAlert('error', 'خطأ: لم يتم التعرف على رقم أمر الشراء');
+                    return;
+                }
+
+                showAlert('info', 'جاري إرسال رمز OTP إلى هاتفك...');
+
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                console.log('Sending purchaseOrderId:', currentPurchaseOrderId); // للتتبع
+
+                // التصحيح: استخدام purchaseOrderId بدلاً من currentPurchaseOrderId
+                const response = await fetch('/Signature/RequestOTPAjax', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        purchaseOrderId: currentPurchaseOrderId  // هذا الاسم يجب أن يتطابق مع المعلمة في C#
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('OTP Response:', result); // للتتبع
+
+                if (result.success) {
+                    isOTPRequested = true;
+                    $('#otpModal').modal('show');
+
+                    // تفعيل إدخال OTP
+                    const firstOtpInput = document.querySelector('#otpModal .otp-digit');
+                    if (firstOtpInput) {
+                        firstOtpInput.focus();
+                    }
+
+                    showAlert('success', 'تم إرسال رمز OTP إلى هاتفك. صالح لمدة ' + result.expiryMinutes + ' دقيقة');
+                } else {
+                    showAlert('error', 'فشل في إرسال OTP: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error in requestOTP:', error);
+                showAlert('error', 'حدث خطأ أثناء طلب OTP: ' + error.message);
+            }
+        }
+
+        // دالة تأكيد OTP
+        async function verifyOTP() {
+            const otp = getOTPValue();
+
+            if (otp.length !== 4) {
+                showAlert('error', 'يرجى إدخال رمز OTP مكون من 4 أرقام');
+                return;
+            }
+
+            const submitBtn = document.querySelector('#otpForm button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin me-1"></i>جاري التوقيع...';
+
+            try {
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                const response = await fetch('/Signature/VerifyAndSignAjax', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        purchaseOrderId: currentPurchaseOrderId, // استخدام نفس الاسم
+                        otp: otp,
+                        signatureImage: '' // استخدام التوقيع المسجل
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // تحديث واجهة المستخدم
+                    updateSignatureUI(result.signaturePath);
+                    $('#otpModal').modal('hide');
+                    showAlert('success', 'تم التوقيع بنجاح');
+
+                    // إعادة تحميل الصفحة بعد ثانيتين لتحديث البيانات
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    showAlert('error', 'فشل في التوقيع: ' + result.error);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'تأكيد التوقيع';
+                }
+            } catch (error) {
+                console.error('Error in verifyOTP:', error);
+                showAlert('error', 'حدث خطأ أثناء التوقيع: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'تأكيد التوقيع';
+            }
+        }
+
+        // باقي الدوال تبقى كما هي...
+        function setupOTPInputs() {
+            const otpInputs = document.querySelectorAll('#otpModal .otp-digit');
+
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    if (this.value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+
+                input.addEventListener('keypress', function(e) {
+                    if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        }
+
+        function getOTPValue() {
+            const otpDigits = document.querySelectorAll('#otpModal .otp-digit');
+            let otp = '';
+            otpDigits.forEach(digit => {
+                otp += digit.value;
+            });
+            return otp;
+        }
+
+        function updateSignatureUI(signaturePath) {
+            const signatureSection = document.getElementById('signatureSection');
+            signatureSection.innerHTML = `
+                <img src="${signaturePath}" alt="Signature" style="max-height: 40px; max-width: 100px;">
+                <div class="small text-muted">تم التوقيع بتاريخ: ${new Date().toLocaleString('ar-EG')}</div>
+            `;
+            signatureSection.style.cursor = 'default';
+            signatureSection.classList.remove('signature-trigger');
+        }
+
+        function showAlert(type, message) {
+            if (typeof toastr !== 'undefined') {
+                if (type === 'success') {
+                    toastr.success(message);
+                } else if (type === 'error') {
+                    toastr.error(message);
+                } else if (type === 'info') {
+                    toastr.info(message);
+                }
+            } else if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: type,
+                    text: message,
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } else {
+                alert(message);
+            }
+        }
+
+              function printDiv(divId) {
+            const printContent = document.getElementById(divId).innerHTML;
+            const originalContent = document.body.innerHTML;
+
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            window.location.reload(); // لإعادة تحميل الصفحة إذا لزم الأمر
+        }
+
+        // إعادة تعيين النموذج عند إغلاق الـ Modal
+        $('#otpModal').on('hidden.bs.modal', function () {
+            const submitBtn = document.querySelector('#otpForm button[type="submit"]');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'تأكيد التوقيع';
+
+            const otpDigits = document.querySelectorAll('#otpModal .otp-digit');
+            otpDigits.forEach(digit => {
+                digit.value = '';
+            });
+
+            const errorDiv = document.querySelector('#otpModal .invalid-feedback');
+            errorDiv.style.display = 'none';
+        });
+                document.querySelectorAll(".otp-digit").forEach((el, index, arr) => {
+            el.addEventListener("input", () => {
+                if (el.value.length === 1 && index < arr.length - 1) {
+                    arr[index + 1].focus();
+                }
+            });
+        });
+
+    </script>
+}

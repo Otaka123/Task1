@@ -1,0 +1,631 @@
+﻿@using System.Globalization
+@using Application.Common
+@inject IAppLocalizer Localizer
+@{
+    var loadingText = Localizer["Loading"];
+    var prefix = Localizer["LastVisitPrefix"];
+}
+<!DOCTYPE html>
+<!-- تغيير lang ليكون ديناميكي -->
+<html dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Localizer["SmartVisionCMS"]</title>
+
+    <!-- تحميل المكتبات الأساسية أولاً -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- تحميل Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" type="image/png" href="~/assets/images/logo2.png" />
+    <link rel="shortcut icon" href="~/assets/images/logo2.png" type="image/x-icon" />
+    <!-- تحميل المكتبات الأخرى من CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.1.2/ionicons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
+    <!-- تحميل ملفات التطبيق -->
+    <link rel="stylesheet" href="~/css/loading-bar.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/skin_color.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/inline_styles.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/AdminStyle.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/admin-modals.css" asp-append-version="true">
+
+    <!-- ملفات RTL ديناميكية تُحمّل بعد "AdminStyle" حتى تتجاوز قواعدها عند الحاجة -->
+   
+        <link rel="stylesheet" href="~/css/style_rtl.css" asp-append-version="true">
+
+
+</head>
+
+<body class="light-skin sidebar-mini theme-primary fixed @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")"
+      style="height: auto; min-height: 100%;" cz-shortcut-listen="true">
+    <!-- Loading Bar -->
+    <div class="loading-bar">
+        <div class="loading-bar-progress"></div>
+    </div>
+    <div class="wrapper @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "rtl-mode" : "ltr-mode")"
+         style="height: auto; min-height: 100%;">
+        <header class="main-header">
+            <div class="mt-1 mb-1 d-flex align-items-center logo-box justify-content-start d-md-none d-block">
+                <!-- Logo (mobile) -->
+                <a asp-area="Admin" asp-controller="ContactUs" asp-action="Index" class="logo">
+                    <!-- logo-->
+                </a>
+            </div>
+
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top px-5">
+                <!-- Sidebar toggle button-->
+                <div class="app-menu">
+                    <ul class="header-megamenu nav">
+                        <li class="btn-group nav-item">
+                            <a href="#" class="nav-link push-btn btn-primary-light" data-toggle="push-menu" role="button">
+                                <i class="fa-solid fa-bars"></i>
+                            </a>
+                        </li>
+
+                        @* <li class="btn-group nav-item">
+                            <div class="user-profile d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="image d-flex align-items-center">
+                                        <div class="">
+                                            <h4 class="mb-0 fw-600 text-uppercase">
+                                                <span class="fw-500">
+                                                    @Localizer["Hi"],
+                                                </span>@Localizer["Admin"]
+                                                <img class="hi-img" src="~/images/hand.gif">
+                                            </h4>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <p style="font-size:12px; color:#8690a1" class="mb-0" id="lastLoginDisplay">
+                                                    @loadingText
+                                                </p>
+
+                                                <script>
+                                                    async function loadLastLogin() {
+                                                        try {
+                                                            const response = await fetch('@Url.Action("GetLastLogin", "Account")');
+                                                            if (response.ok) {
+                                                                const data = await response.json();
+
+                                                                if (data.success) {
+                                                                    document.getElementById('lastLoginDisplay').textContent =
+                                                                        data.prefix + data.date;
+                                                                } else {
+                                                                    document.getElementById('lastLoginDisplay').textContent =
+                                                                        data.prefix + data.error;
+                                                                }
+                                                            }
+                                                        } catch (error) {
+                                                            console.error('Error loading last login:', error);
+                                                            const isRtl = document.documentElement.dir === 'rtl';
+                                                            const errorMsg = isRtl ? '@Localizer["LastVisitNotAvailable"]' : '@Localizer["LastVisitNA"]';
+                                                            document.getElementById('lastLoginDisplay').textContent = errorMsg;
+                                                        }
+                                                    }
+
+                                                    document.addEventListener('DOMContentLoaded', loadLastLogin);
+                                                </script>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> *@
+
+                    </ul>
+                </div>
+
+                <div class="navbar-custom-menu r-side">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <ul class="d-flex align-items-center list-unstyled mb-0">
+                                @* <li class="btn-group d-inline-flex align-items-center">
+                                    @{
+                                        var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+                                        var nextCulture = currentCulture == "ar" ? "en" : "ar";
+                                        var nextCulturedisplay = currentCulture == "ar" ? "en" : "ع";
+
+                                        // ✅ Preserve Query String (like ?pageName=About)
+                                        var returnUrl = Context.Request.Path + Context.Request.QueryString;
+                                    }
+
+                                    <a asp-controller="Language"
+                                       asp-action="SetLanguage"
+                                       asp-route-culture="@nextCulture"
+                                       asp-route-returnUrl="@returnUrl"
+                                       class="lang-btn">
+                                        <i class="fas fa-globe"></i>
+                                        <span class="text-capitalize fs-5 fw-800">@nextCulturedisplay</span>
+                                    </a>
+                                </li> *@
+
+
+                                <li class="btn-group d-lg-inline-flex logout-btn ">
+                                    <div id="languagex">
+                                        <div class="search-bx  my-10">
+                                            <h5>
+                                                <b>
+                                                    <form asp-action="Logout" asp-controller="Account" asp-area="Admin" method="post">
+                                                        <button class="logout-btn " type="submit">
+                                                            <i class="fas fa-sign-out-alt fs-4 fw-800"></i>
+                                                            <span class="fw-800">@Localizer["Logout"]</span>
+                                                        </button>
+                                                    </form>
+                                                </b>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Notification-->
+                        <li class="dropdown notifications-menu btn-group nav-item">
+                            <ul class="dropdown-menu animated bounceIn">
+                                <li class="header">
+                                    <div class="p-20">
+                                        <div class="flexbox">
+                                            <div>
+                                                <h4 class="mb-0 mt-0">@Localizer["Notifications"]</h4>
+                                            </div>
+                                            <div>
+                                                <a href="#" class="text-danger">@Localizer["ClearAll"]</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+                                        <ul class="menu sm-scrol" style="overflow: hidden; width: auto; height: 250px;">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-info"></i> @Localizer["NotificationSample1"]
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-warning"></i> @Localizer["NotificationSample2"]
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-danger"></i> @Localizer["NotificationSample3"]
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-shopping-cart text-success"></i> @Localizer["NotificationSample4"]
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user text-danger"></i> @Localizer["NotificationSample5"]
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user text-primary"></i> @Localizer["NotificationSample6"]
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user text-success"></i> @Localizer["NotificationSample7"]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="slimScrollBar" style="background: rgb(228, 230, 239); width: 4px; position: absolute; top: 0px; opacity: 0.8; display: block; border-radius: 7px; z-index: 99; right: 3px;"></div>
+                                        <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 3px;"></div>
+                                    </div>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">@Localizer["ViewAll"]</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+    </div>
+
+    <aside class="main-sidebar">
+        <!-- sidebar-->
+        <section class="sidebar position-relative">
+            <div class="d-flex align-items-center logo-box justify-content-start d-md-block d-none">
+                <!-- Logo -->
+                <a asp-area="Admin" asp-controller="ContactUs" asp-action="Index" class="logo" style="text-decoration:none">
+                    <!-- logo-->
+                    <div class="logo-mini ">
+                        <span class="light-logo w-50 h-50"><img src="~/images/logo2.png" alt="logo"></span>
+                    </div>
+                    <div class="logo-lg">
+                        <span class="light-logo">
+                            <img src="~/images/logo.png" alt="logo">
+
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <hr class="left-sperater" style="border-color:black;border-width:thin;border-style:solid">
+            <div class="multinav">
+                <div class="multinav-scroll ps" style="height: 96%;">
+                    <!-- sidebar menu-->
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        <li class="header"><strong>@Localizer["MainMenu"]</strong></li>
+                        <!-- Courses Management -->
+                        <li class="treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Courses" ? "active menu-open" : "")">
+                            <a href="#">
+                                <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+                                <span>وحدة اوامر الشراء</span>
+                                <span class="pull-right-container">
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="link-title">
+                                    <span>وحدة اوامر الشراء</span>
+                                </li>
+
+                                <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "PurchaseOrder" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                                    <a asp-area="Admin" asp-controller="PurchaseOrder" asp-action="Index">
+                                            <i class="fa-solid fa-list"></i>
+                                            <span>قائمة أوامر الشراء</span>
+                                        </a>
+                                    </li>
+                                  
+                                        <li class="submenu-separator"><div style="height: 1px; background: linear-gradient(90deg, transparent, #eee 30%, #eee 70%, transparent); margin: 4px 20px; border-radius: 1px;"></div></li>
+
+
+
+                                <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "PurchaseOrder" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "")">
+                                    <a asp-area="Admin" asp-controller="PurchaseOrder" asp-action="Create">
+                                            <i class="fa-solid fa-plus"></i>
+                                            <span>اضافة امر الشراء</span>
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </aside>
+
+    <div class="content-wrapper" style="min-height: 82.2083px;">
+        <div class="container-full">
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+    </div>
+            <footer class="main-footer" dir="ltr" style="text-align: left;">
+            <div class="footer-copyright m-0 text-center ">
+                <div class="row p-3">
+                    <div class="col-lg-7 col-12 d-flex justify-content-lg-start justify-content-center  align-items-center">
+                        <p>
+                            <a href="https://esmart-vision.com/">Copyright ©2025 All Rights Reserved Smart Vision IT Solutions</a>
+                        </p>
+                    </div>
+                    <div class="col-lg-5 col-12 d-flex justify-content-lg-end justify-content-center  align-items-center  ">
+                        <p style="display: inline-flex; margin-top: 3px;">Powered By </p>
+                        <a href="https://esmart-vision.com/" target="_blank">
+                            <img src="~/images/foter_logo_co.png" style="width:99px" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+    @* else
+    {
+        <footer class="main-footer" dir="ltr" style="text-align: left;">
+            <div class="footer-copyright m-0  ">
+                <div class="row p-3">
+
+                    <div class="col-lg-5 col-12 d-flex justify-content-lg-start justify-content-center align-items-center  ">
+                        <a href="https://esmart-vision.com/" target="_blank">
+                            <img src="~/images/foter_logo_co.png" style="width:99px" alt="">
+                        </a>
+                        <p class="me-1" style="display: inline-flex; margin-top: 3px;">Powered By </p>
+
+                    </div>
+                    <div class="col-lg-7 col-12 d-flex justify-content-lg-end  justify-content-center  align-items-center " style="left:0">
+                        <p>
+                            <a href="https://esmart-vision.com/">Copyright ©2025 All Rights Reserved Smart Vision IT Solutions</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    } *@
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/loading-bar.js" asp-append-version="true"></script>
+    <script src="~/js/loading-bar-enhanced.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="~/js/vendors.min.js"></script>
+    <script src="~/js/template.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/js/site.js"></script>
+
+    @* <script src="/js/EnTapValidation.js"></script> *@
+
+    @* <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('textarea').forEach(function (textarea) {
+                if (textarea.id && textarea.id !== "excludedTextarea") {
+                    const originalContent = textarea.value;
+                    const textareaId = textarea.id;
+
+                    // تحديد الاتجاه بناءً على id الـ textarea مع قائمة محددة
+                    const textDirection = getDirectionFromId(textareaId);
+                    const isRtl = textDirection === 'rtl';
+
+                    initializeCKEditor(textareaId, originalContent, textDirection, isRtl);
+                }
+            });
+
+            // دالة لتهيئة CKEditor
+            function initializeCKEditor(textareaId, content, direction, isRtl) {
+                const config = {
+                    language: isRtl ? 'ar' : 'en',
+                    contentsLangDirection: direction,
+                    direction: direction,
+                    height: 250,
+                    autoParagraph: false,
+                    toolbar: getToolbarConfig(isRtl),
+                    startupContent: content || ''
+                };
+
+                const editor = CKEDITOR.replace(textareaId, config);
+
+                editor.on('instanceReady', function() {
+                    editor.on('change', function() {
+                        // تحديث قيمة textarea المخفية
+                        document.getElementById(textareaId).value = editor.getData();
+                    });
+                });
+            }
+
+            // دالة محددة للكشف عن الاتجاه بناءً على الـ ID
+            function getDirectionFromId(textareaId) {
+                const rtlIds = [
+                    'arDescription', 'arContent', 'arabicText',
+                    'ar_text', 'description_ar', 'content_ar'
+                ];
+
+                const ltrIds = [
+                    'enDescription', 'enContent', 'englishText',
+                    'en_text', 'description_en', 'content_en'
+                ];
+
+                // البحث في قائمة الـ IDs العربية
+                if (rtlIds.includes(textareaId)) {
+                    return 'rtl';
+                }
+
+                // البحث في قائمة الـ IDs الإنجليزية
+                if (ltrIds.includes(textareaId)) {
+                    return 'ltr';
+                }
+
+                // إذا لم يكن في القوائم، نستخدم الكشف التقريبي
+                return detectDirectionFromIdPattern(textareaId);
+            }
+
+            // دالة مساعدة للكشف التقريبي من نمط الـ ID
+            function detectDirectionFromIdPattern(textareaId) {
+                const idLower = textareaId.toLowerCase();
+
+                // إذا كان الـ ID يحتوي على كلمات دالة على العربية
+                if (idLower.includes('ar') ||
+                    idLower.includes('arabic') ||
+                    idLower.includes('rtl') ||
+                    idLower.startsWith('ar_') ||
+                    idLower.endsWith('_ar')) {
+                    return 'rtl';
+                }
+
+                // إذا كان الـ ID يحتوي على كلمات دالة على الإنجليزية
+                if (idLower.includes('en') ||
+                    idLower.includes('english') ||
+                    idLower.includes('ltr') ||
+                    idLower.startsWith('en_') ||
+                    idLower.endsWith('_en')) {
+                    return 'ltr';
+                }
+
+                // قيمة افتراضية
+                return 'ltr';
+            }
+
+            // دالة للحصول على تكوين الأدوات بناءً على الاتجاه
+            function getToolbarConfig(isRtl) {
+                const baseTools = [
+                    { name: 'document', items: ['Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'] },
+                    { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+                    { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'] },
+                    { name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'] },
+                    '/',
+                    { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat'] },
+                    { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'] },
+                    { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+                    { name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+                    '/',
+                    { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+                    { name: 'colors', items: ['TextColor', 'BGColor'] },
+                    { name: 'tools', items: ['Maximize', 'ShowBlocks'] },
+                    { name: 'about', items: ['About'] }
+                ];
+
+                if (isRtl) {
+                    baseTools.forEach(group => {
+                        if (group.name === 'paragraph' && group.items) {
+                            if (!group.items.includes('BidiLtr')) {
+                                group.items.push('BidiLtr', 'BidiRtl');
+                            }
+                        }
+                    });
+                } else {
+                    baseTools.forEach(group => {
+                        if (group.name === 'paragraph' && group.items) {
+                            group.items = group.items.filter(item =>
+                                item !== 'BidiLtr' && item !== 'BidiRtl'
+                            );
+                        }
+                    });
+                }
+
+                return baseTools;
+            }
+        });
+    </script> *@
+
+
+    <script>
+        // دالة لتهيئة وعرض رسائل Toastr
+        function initializeToasts() {
+            // التحقق من تحميل Toastr
+            if (typeof toastr === 'undefined') {
+                console.error('Toastr library is not loaded!');
+                setTimeout(initializeToasts, 100); // إعادة المحاولة بعد 100ms
+                return;
+            }
+
+            // إعدادات Toastr
+            toastr.options = {
+                positionClass: "toast-top-center",
+                closeButton: true,
+                progressBar: true,
+                timeOut: 5000,
+                extendedTimeOut: 2000,
+                preventDuplicates: true,
+                newestOnTop: true,
+                rtl: @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "true" : "false")
+            };
+
+            // دالة لتنظيف النص وعرض الرسائل
+            function showTempDataMessage(type, message) {
+                if (!message || typeof toastr === 'undefined') return;
+
+                try {
+                    const cleanMessage = message
+                        .replace(/'/g, "\\'")
+                        .replace(/\r/g, '')
+                        .replace(/\n/g, ' <br />')
+                        .replace(/<script /gi, '&lt;script')
+                        .replace(/<\/script/gi, '&lt;/script');
+
+                    toastr[type](cleanMessage);
+                } catch (error) {
+                    console.error('Error displaying toastr message:', error);
+                }
+            }
+
+            // عرض الرسائل من TempData
+            @if (TempData["Success"] != null)
+            {
+                            <text>
+                            showTempDataMessage('success', '@Html.Raw(TempData["Success"])');
+                            </text>
+                            TempData.Remove("Success");
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                            <text>
+                            showTempDataMessage('error', '@Html.Raw(TempData["Error"])');
+                            </text>
+                            TempData.Remove("Error");
+            }
+
+            @if (TempData["Warning"] != null)
+            {
+                            <text>
+                            showTempDataMessage('warning', '@Html.Raw(TempData["Warning"])');
+                            </text>
+                            TempData.Remove("Warning");
+            }
+
+            @if (TempData["Info"] != null)
+            {
+                            <text>
+                            showTempDataMessage('info', '@Html.Raw(TempData["Info"])');
+                            </text>
+                            TempData.Remove("Info");
+            }
+        }
+
+        // تشغيل الدالة عند تحميل الصفحة
+        $(document).ready(function() {
+            initializeToasts();
+        });
+
+        // بديل: استخدام DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initializeToasts, 100);
+        });
+    </script>
+
+    <!-- باقي الـ scripts -->
+    <script>
+        // إصلاح ديناميكي للـ RTL
+        document.addEventListener('DOMContentLoaded', function() {
+            const isRtl = document.documentElement.dir === 'rtl';
+
+            if (isRtl) {
+                // إصلاح أسهم القوائم المنسدلة
+                const arrows = document.querySelectorAll('.fa-angle-right');
+                arrows.forEach(arrow => {
+                    arrow.classList.remove('fa-angle-right');
+                    arrow.classList.add('fa-angle-left');
+                });
+
+                // إصلاح الـ sidebar المفتوح
+                const treeviewMenus = document.querySelectorAll('.treeview-menu');
+                treeviewMenus.forEach(menu => {
+                    menu.style.paddingRight = '20px';
+                    menu.style.paddingLeft = '0';
+                });
+
+                // إصلاح الهوامش
+                const contentWrapper = document.querySelector('.content-wrapper');
+                const navbar = document.querySelector('.navbar');
+                const footer = document.querySelector('.main-footer');
+
+                if (contentWrapper) contentWrapper.style.marginRight = '250px';
+                if (navbar) navbar.style.marginRight = '250px';
+                if (footer) footer.style.marginRight = '250px';
+            }
+        });
+
+        // إصلاح عند تغيير حجم الشاشة
+        window.addEventListener('resize', function() {
+            const isRtl = document.documentElement.dir === 'rtl';
+            if (isRtl) {
+                if (window.innerWidth <= 767) {
+                    document.querySelector('.content-wrapper').style.marginRight = '0';
+                    document.querySelector('.navbar').style.marginRight = '0';
+                    document.querySelector('.main-footer').style.marginRight = '0';
+                } else {
+                    document.querySelector('.content-wrapper').style.marginRight = '250px';
+                    document.querySelector('.navbar').style.marginRight = '250px';
+                    document.querySelector('.main-footer').style.marginRight = '250px';
+                }
+            }
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

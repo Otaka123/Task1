@@ -1,0 +1,229 @@
+﻿@using Domain.DTOS.Filters
+@using Domain.DTOS.Purchase
+@model PagedResultN<PurchaseOrderDto>
+@{
+    Layout = "_PrintLayout"; // استخدام layout مخصص للطباعة
+    ViewData["Title"] = ViewData["PrintTitle"] ?? "قائمة أوامر الشراء";
+}
+
+<div class="container print-container">
+    <div id="report">
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">    </span>
+            </div>
+            <p class="loading-text">الرجاء الانتظار...</p>
+        </div>
+
+        <!-- Official Header -->
+        <div class="print-header">
+            <table>
+                <tbody>
+                    <tr>
+
+                        <td width="33%">
+                            <strong>United Arab Emirates</strong>
+                            <br>
+                            " Fujairah Science Club "
+                        </td>
+
+                        <td width="33%" style="text-align: center;">
+                            <img src="~/images/logo55.jpeg" class="logo" onerror="this.style.display='none'">
+                        </td>
+                        <td width="33%" style="padding-left:50px !important">
+                            <strong>الإمارات العربية المتحدة</strong>
+                            <br>
+                            " نادي الفجيرة العلمي "
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="header">
+            <h2 class="text-danger">@ViewData["Title"]</h2>
+            <p class="text-muted">@DateTime.Now.ToString("dd-MM-yyyy HH:mm")</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-secondary">
+                    <tr>
+                        <th width="35%">التاريخ</th>
+                        <th width="35%">اسم المورد</th>
+                        <th width="35%">رقم امر الشراء</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        var order = Model.Items[i];
+                        <tr>
+                            <td>@order.PurchaseDate.ToString("dd-MM-yyyy")</td>
+                            <td>@order.SupplierName</td>
+                            <td>@order.PurchaseNumber</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <div class="footer ">
+            <p class="princially text-center">
+                "Printed by : "
+                <span>manager | @DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* تنسيق الهيدر الرسمي */
+    .print-header {
+        width: 100%;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+    }
+
+        .print-header table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .print-header td {
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+        .print-header strong {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .logo {
+        max-height: 80px;
+        max-width: 120px;
+    }
+
+    /* تنسيق الهيدر الرئيسي */
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        margin-bottom: 5px;
+    }
+
+    .text-muted {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    تنسيق الجدول
+    .table-responsive {
+        margin: 20px 0;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    /* .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    } */
+
+
+
+    /* تنسيق الفوتر */
+    .footer {
+        margin-top: 30px;
+        text-align: left;
+        border-top: 2px solid #333;
+        padding-top: 10px;
+    }
+
+    .princially {
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+    /* تنسيق loading overlay */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .loading-text {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    /* تنسيق الطباعة */
+    @@media print {
+        .footer-copyright{
+            display: none !important;
+        }
+        .btn {
+            display: none !important;
+        }
+
+        .table {
+            font-size: 10px;
+        }
+
+        .loading-overlay {
+            display: none !important;
+        }
+        /* اجعل الـ container ممتد بالكامل عند الطباعة */
+        .print-container {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+</style>
+
+<script>
+    // This Part Is Important
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 500);
+        setTimeout(() => window.print(), 800);
+    });
+
+    // Close window after printing
+    window.onafterprint = function() {
+        setTimeout(function() {
+            window.close();
+        }, 500);
+    };
+</script>

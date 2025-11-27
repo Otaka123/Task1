@@ -1,0 +1,454 @@
+﻿@using Domain.DTOS.Purchase
+@model UpdatePurchaseOrderDto
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var savedItems = Model.Items ?? new List<CreatePurchaseOrderItemDto>();
+}
+
+<div id="page-container" class="page-container flex-grow-1">
+
+    <!-- Breadcrumb Navigation Column -->
+    <div class="card-header border-bottom d-flex align-items-start row my-3">
+        <div class="d-flex align-items-center col-md-6 flex-wrap">
+            <h4 class="ico-header-title">
+                <i class="fa-solid fa-cart-shopping me-1 text-ico"></i>
+                تعديل أمر الشراء
+            </h4>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-start gap-1 flex-wrap">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 py-2">
+                    <li class="breadcrumb-item">
+                    </li>
+                    <li class="breadcrumb-item"><a asp-controller="PurchaseOrder" asp-action="Index">قائمة أوامر الشراء</a></li>
+                    <li class="breadcrumb-item active">تعديل أمر الشراء</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="card p-3">
+        <div class="container-fluid">
+            <form id="forma" asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <!-- Purchase Number (Auto-generated - Display Only) -->
+                    <div class="col-md-10">
+                        <label for="PurchaseNumberDisplay" class="form-label fw-semibold">رقم أمر الشراء</label>
+                        <input id="PurchaseNumberDisplay" value="@Model.PurchaseNumber" disabled readonly class="form-control mb-2" />
+                        <input type="hidden" asp-for="PurchaseNumber" />
+                    </div>
+                    <!-- VAT Checkbox -->
+                    <div class="col-md-2">
+                        <div class="d-flex align-items-center gap-3 ms-1 mt-3">
+                            <input asp-for="HasVAT" class="form-check-input" style="transform: scale(1.6); cursor: pointer;" />
+                            <label class="form-label fw-semibold d-block mt-3" for="HasVAT">With 5% VAT</label>
+                        </div>
+                        <span asp-validation-for="HasVAT" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="col-md-6 mb-2">
+                        <label asp-for="PurchaseDate" class="form-label fw-semibold">التاريخ</label>
+                        <div class="input-icon-left">
+                            <input asp-for="PurchaseDate" class="form-control green-border form-control-sm filter-bordered" type="date" />
+                        </div>
+                        <span asp-validation-for="PurchaseDate" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Supplier -->
+                    <div class="col-md-6">
+                        <label asp-for="SupplierId" class="form-label fw-semibold">المورد</label>
+                        <select asp-for="SupplierId" asp-items="ViewBag.Suppliers" class="form-control mb-2">
+                            <option value="">-- اختر المورد --</option>
+                        </select>
+                        <span asp-validation-for="SupplierId" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- Items Addition Section -->
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <div class="text-left sec-title">
+                            <div class="lg-title">
+                                <h4>إضافة بنود أمر الشراء</h4>
+                            </div>
+                            <div class="title-sep-left"></div>
+                            <div class="title-sep-sm-left"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="Quantity" class="form-label fw-semibold">الكمية</label>
+                        <input id="Quantity" class="form-control only-integer mb-2" type="text" value="1" min="1">
+                        <span id="QuantitySpan" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="SinglePrice" class="form-label fw-semibold">سعر الوحدة</label>
+                        <input id="SinglePrice" placeholder="0.00" class="form-control mb-2" type="number" step="0.01" min="0">
+                        <span id="SinglePriceSpan" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ItemName" class="form-label fw-semibold">البيان</label>
+                        <input id="ItemName" class="form-control mb-2" type="text">
+                        <span id="ItemNameSpan" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-rss px-4 w-100" onclick="addRow()">
+                            <i class="fa-solid fa-cart-plus me-2"></i> اضافة
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Items List Section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-left sec-title">
+                            <div class="lg-title">
+                                <h4>بنود أمر الشراء</h4>
+                            </div>
+                            <div class="title-sep-left"></div>
+                            <div class="title-sep-sm-left"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th width="15%">الكمية</th>
+                                <th width="20%">سعر الوحدة</th>
+                                <th width="45%">البيان</th>
+                                <th width="20%">أدوات التحكم</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Items">
+                            <!-- Items will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Hidden fields for items -->
+                <div id="hidden-items-container" style="display: none;">
+                    <!-- Hidden inputs will be added here by JavaScript -->
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="submit" class="btn btn-rss me-2">
+                        <i class="fa-solid fa-floppy-disk me-1"></i>تحديث
+                    </button>
+                    <a class="btn btn-secondary" href="/Admin/PurchaseOrder">
+                        رجوع<i class="fa-solid fa-arrow-left me-1"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for delete confirmation -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                هل أنت متأكد من أنك تريد حذف هذا البند؟
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        let itemIndex = 0;
+        let rowToDelete = null;
+        let editingRow = null;
+        let originalValues = {};
+
+        // تحميل البنود المحفوظة
+        function loadSavedItems() {
+            @foreach (var item in savedItems)
+            {
+                    <text>
+                        addSavedRow(
+                            @item.Quantity,
+                            @item.Price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
+                            '@Html.Raw(item.Description.Replace("'", "\\'"))',
+                            @(item.Id)
+                        );
+                    </text>
+            }
+        }
+
+        // إضافة صف محفوظ
+        function addSavedRow(quantity, price, description, itemId) {
+            const tableBody = document.getElementById('Items');
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('data-index', itemIndex);
+            newRow.setAttribute('data-itemid', itemId || '');
+            newRow.innerHTML = `
+                <td class="editable-cell" ondblclick="enableEdit(this, 'quantity')">${quantity}</td>
+                <td class="editable-cell" ondblclick="enableEdit(this, 'price')">${Number(price).toFixed(2)}</td>
+                <td class="editable-cell" ondblclick="enableEdit(this, 'description')">${description}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmRemoveRow(this)" title="حذف">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>`;
+            tableBody.appendChild(newRow);
+            addHiddenInputs(quantity, price, description, itemId);
+            itemIndex++;
+        }
+
+        // function addHiddenInputs(quantity, price, description, itemId) {
+        //     const hiddenContainer = document.getElementById('hidden-items-container');
+
+        //     معالجة السعر لضمان أنه رقم صالح
+        //     let fixedPrice = parseFloat(
+        //         String(price).replace(',', '.')
+        //     );
+
+        //     لو فشل التحويل نخليه صفر
+        //     if (isNaN(fixedPrice)) {
+        //         fixedPrice = 0;
+        //     }
+
+        //     إرسال الرقم بدون toFixed كنص حتى يستقبله C# كـ decimal طبيعي
+        //     const decimalPrice = fixedPrice;
+
+        //     if (itemId && itemId > 0) {
+        //         hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Id`, itemId));
+        //     }
+
+        //     hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Quantity`, quantity));
+        //     hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Price`, decimalPrice));
+        //     hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Description`, description));
+        // }
+                function addHiddenInputs(quantity, price, description, itemId) {
+            const hiddenContainer = document.getElementById('hidden-items-container');
+
+            // تحويل السعر إلى رقم عشري صالح
+            let fixedPrice = parseFloat(String(price).replace(',', '.').replace(/[^0-9.-]/g, ''));
+            if (isNaN(fixedPrice)) fixedPrice = 0;
+
+            if (itemId && itemId > 0) {
+                hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Id`, itemId));
+            }
+
+            hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Quantity`, quantity));
+            hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Price`, fixedPrice));
+            hiddenContainer.appendChild(createHiddenInput(`Items[${itemIndex}].Description`, description));
+        }
+
+        // دالة مساعدة لإنشاء حقول مخفية
+        function createHiddenInput(name, value) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            return input;
+        }
+
+                document.querySelector("#forma").addEventListener("submit", function (e) {
+            const itemsCount = document.getElementById("Items").children.length;
+
+            if (itemsCount === 0) {
+                e.preventDefault();
+                alert("يجب إضافة على الأقل بند واحد");
+                return false;
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            loadSavedItems();
+
+            const style = document.createElement("style");
+            style.textContent = `
+                .editable-cell { cursor: pointer; transition: .2s; }
+                .editable-cell:hover { background-color: #f8f9fa; }
+                .editing-cell { background-color: #fff3cd !important; }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // إضافة صف جديد
+        function addRow() {
+            let quantity = document.getElementById('Quantity').value.replace(/^0+/, '');
+            const price = document.getElementById('SinglePrice').value;
+            const description = document.getElementById('ItemName').value;
+
+            quantity = quantity === '' ? '1' : quantity;
+
+            let valid = true;
+
+            if (!quantity || quantity <= 0) {
+                document.getElementById("QuantitySpan").textContent = "الكمية مطلوبة";
+                valid = false;
+            } else document.getElementById("QuantitySpan").textContent = "";
+
+            if (!price || price <= 0) {
+                document.getElementById("SinglePriceSpan").textContent = "السعر مطلوب";
+                valid = false;
+            } else document.getElementById("SinglePriceSpan").textContent = "";
+
+            if (!description.trim()) {
+                document.getElementById("ItemNameSpan").textContent = "البيان مطلوب";
+                valid = false;
+            } else document.getElementById("ItemNameSpan").textContent = "";
+
+            if (!valid) return;
+
+            const tableBody = document.getElementById('Items');
+            const newRow = document.createElement('tr');
+            newRow.setAttribute("data-index", itemIndex);
+
+            newRow.innerHTML = `
+                <td class="editable-cell" ondblclick="enableEdit(this,'quantity')">${quantity}</td>
+                <td class="editable-cell" ondblclick="enableEdit(this,'price')">${Number(price).toFixed(2)}</td>
+                <td class="editable-cell" ondblclick="enableEdit(this,'description')">${description}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmRemoveRow(this)" title="حذف">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>`;
+            tableBody.appendChild(newRow);
+
+            addHiddenInputs(quantity, price, description, null);
+            itemIndex++;
+
+            document.getElementById('Quantity').value = '1';
+            document.getElementById('SinglePrice').value = '';
+            document.getElementById('ItemName').value = '';
+        }
+
+        // تعديل خلية
+        function enableEdit(cell, field) {
+            if (editingRow) return;
+
+            const row = cell.parentElement;
+            editingRow = row;
+            originalValues = {
+                quantity: row.cells[0].textContent,
+                price: row.cells[1].textContent,
+                description: row.cells[2].textContent
+            };
+
+            const value = cell.textContent;
+            let type = field === "description" ? "text" : "number";
+            let step = field === "price" ? "0.01" : field === "quantity" ? "1" : "";
+
+            cell.classList.add("editing-cell");
+            cell.innerHTML = `<input type="${type}" class="form-control form-control-sm"
+                                 value="${value}" ${step ? `step="${step}"` : ""}
+                                 onblur="saveEdit(this,'${field}')"
+                                 onkeypress="handleEditKey(event,this,'${field}')">`;
+            const input = cell.querySelector("input");
+            input.focus();
+            input.select();
+        }
+
+        function handleEditKey(e, input, field) {
+            if (e.key === "Enter") input.blur();
+            if (e.key === "Escape") { input.value = originalValues[field]; input.blur(); }
+        }
+
+        function saveEdit(input, field) {
+            const cell = input.parentElement;
+            const row = cell.parentElement;
+            let val = input.value.trim();
+
+            cell.classList.remove("editing-cell");
+
+            if (!validateField(field, val)) {
+                cell.textContent = originalValues[field];
+                editingRow = null;
+                return;
+            }
+
+            val = field === "price" ? Number(val).toFixed(2) :
+                  field === "quantity" ? parseInt(val) : val;
+
+            cell.textContent = val;
+            updateHidden(row);
+            editingRow = null;
+        }
+
+        function validateField(field, v) {
+            if (!v) return false;
+            if (field === "quantity") return parseInt(v) > 0;
+            if (field === "price") return Number(v) > 0;
+            if (field === "description") return v.trim().length > 0;
+            return true;
+        }
+
+             function updateHidden(row) {
+            const idx = row.getAttribute("data-index");
+            const q = row.cells[0].textContent.trim();
+
+            // تنظيف السعر: إزالة أي رموز أو فراغات، استبدال الفاصلة بـ نقطة
+            let pText = row.cells[1].textContent.replace(/[^0-9,.-]/g, '').trim();
+            pText = pText.replace(',', '.'); // تحويل الفاصلة للنقطة
+            const p = parseFloat(pText) || 0; // لو فشل التحويل يتحول 0
+
+            const d = row.cells[2].textContent.trim();
+
+            const hidden = document.getElementById("hidden-items-container");
+            hidden.querySelector(`input[name="Items[${idx}].Quantity"]`).value = q;
+            hidden.querySelector(`input[name="Items[${idx}].Price"]`).value = p;
+            hidden.querySelector(`input[name="Items[${idx}].Description"]`).value = d;
+        }
+
+        function confirmRemoveRow(btn) {
+            rowToDelete = btn.closest("tr");
+            const modal = new bootstrap.Modal(document.getElementById("deleteConfirmationModal"));
+            modal.show();
+        }
+
+        document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+            if (rowToDelete) {
+                rowToDelete.remove();
+                reindex();
+                bootstrap.Modal.getInstance(document.getElementById("deleteConfirmationModal")).hide();
+                rowToDelete = null;
+            }
+        });
+
+        function reindex() {
+            const hidden = document.getElementById("hidden-items-container");
+            const rows = document.querySelectorAll("#Items tr");
+            hidden.innerHTML = "";
+            itemIndex = 0;
+
+            rows.forEach(r => {
+                const q = r.cells[0].textContent;
+                const p = r.cells[1].textContent;
+                const d = r.cells[2].textContent;
+                const id = r.getAttribute("data-itemid");
+                r.setAttribute("data-index", itemIndex);
+                addHiddenInputs(q, p, d, id || null);
+                itemIndex++;
+            });
+        }
+
+               // التحقق من وجود بنود قبل الإرسال - النسخة المبسطة
+     
+    </script>
+}

@@ -1,0 +1,25 @@
+﻿@using Domain.DTOS.Filters
+@using Domain.DTOS.Purchase
+@model PagedResultN<PurchaseOrderDto>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <style>
+        @@media print {
+            .btn, .loading-overlay { display: none !important; }
+
+            title {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

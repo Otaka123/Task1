@@ -1,0 +1,117 @@
+/* Loading Bar Styles */
+.loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.loading-bar-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b35, #ff8c42, #ffa726, #ffb74d);
+    background-size: 200% 100%;
+    animation: loading-bar-animation 2s ease-in-out infinite;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.loading-bar.loading .loading-bar-progress {
+    animation: loading-bar-slide 2s ease-in-out infinite;
+}
+
+.loading-bar.complete .loading-bar-progress {
+    transform: translateX(0);
+    animation: none;
+    transition: transform 0.5s ease;
+}
+
+.loading-bar.hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes loading-bar-slide {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(-20%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes loading-bar-animation {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Alternative simple loading bar style */
+.loading-bar.simple .loading-bar-progress {
+    background: linear-gradient(90deg, #ff6b35, #ffa726);
+    animation: none;
+}
+
+.loading-bar.simple.loading .loading-bar-progress {
+    animation: loading-bar-simple 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-bar-simple {
+    0%, 100% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .loading-bar-progress {
+    transform: translateX(100%);
+}
+
+[dir="rtl"] .loading-bar.loading .loading-bar-progress {
+    animation: loading-bar-slide-rtl 2s ease-in-out infinite;
+}
+
+[dir="rtl"] .loading-bar.complete .loading-bar-progress {
+    transform: translateX(0);
+}
+
+@keyframes loading-bar-slide-rtl {
+    0% {
+        transform: translateX(100%);
+    }
+    50% {
+        transform: translateX(20%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Dark theme support */
+.dark-theme .loading-bar {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.dark-theme .loading-bar-progress {
+    background: linear-gradient(90deg, #ff7043, #ff9800, #ffb74d, #ffc107);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .loading-bar {
+        height: 4px;
+    }
+}

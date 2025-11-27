@@ -1,0 +1,116 @@
+﻿@using Domain.DTOS.User.Request
+@model LoginRequest
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="login-page">
+    <div class="container">
+
+
+        <div class="login-box ">
+            <div class="row contentx">
+                <div class="col-md-6 col-12 d-flex justify-content-center align-items-center">
+                    <div class="img-login-box d-sm-block d-none">
+
+                        <div class="img-box">
+                            <img src="~/images/site_stats2.png" alt="" class="img-login">
+                        </div>
+                        <div class="setting"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 ">
+                    <div class=" rounded10 shadow-lg" id="log-in">
+                        <div class="content-top-agile p-20 pb-sm-20 pb-0">
+                            <h2 style="-webkit-text-stroke: 1px #000;">Let's Get Started</h2>
+                            <p class="mb-0">Sign in to continue to Smart Vision Admin Panel.</p>
+                        </div>
+                        <div class="p-sm-40 p-20">
+                            <form asp-action="Login" asp-controller="Account" method="post" >
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text " style="background-color:#fff;"><i class="fa-solid fa-user-tie"></i></span>
+                                        <input id="username" type="text" class="form-control " asp-for="login" required="" autocomplete="username" placeholder="username" autofocus="">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" style="background-color:#fff;"><i class="fa-solid fa-lock"></i></span>
+                                        <input id="password" type="password" class="form-control" asp-for="Password" required autocomplete="current-password" placeholder="Password">
+                                        <span class="input-group-text" style="background-color:#fff; cursor: pointer;" id="togglePassword">
+                                            <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 d-flex justify-content-start">
+                                        <div class="">
+                                            <input class="input" type="checkbox" asp-for="RememberMe" id="remember">
+
+                                            <label class="form-check-label" for="remember">
+                                                Remember Me
+                                            </label>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-rss mt-10 log">Log IN</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="footer-copyright ">
+                            <div class="container pl-0 pt-4">
+                                <div class="row ">
+                                    <div class="col-lg-7 col-12 d-flex justify-content-md-start justify-content-center">
+                                        <p>CMS ver 5.0</p>
+                                    </div>
+                                    <div class="col-lg-5 col-12 d-flex justify-content-md-end justify-content-center align-items-center">
+                                        <p style="display: inline-flex; margin-right: 8px; margin-bottom: 0;">Developed by </p>
+                                        <a href="https://esmart-vision.com/" target="_blank">
+                                            <img src="~/images/foter_logo_co.png" style="width:90px" alt="Smart Vision IT Solutions">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (togglePassword && passwordField && eyeIcon) {
+            togglePassword.addEventListener('click', function() {
+                // Toggle the type attribute
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+
+                // Toggle the eye icon
+                if (type === 'password') {
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                } else {
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                }
+            });
+        }
+    });
+</script>
