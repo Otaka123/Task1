@@ -55,8 +55,10 @@
             </div>
 
 
-            <div class="col-md-5 d-flex justify-content-center align-items-center gap-1 mb-4">
+            <div class="col-md-5 d-flex justify-content-center align-items-center gap-2 mb-4">
                 <button type="submit" onclick="return validateDates()" class="btn btn-rss btn-equal">بحث</button>
+                <a href="@Url.Action("Index", "PurchaseOrder")" class="btn btn-secondary btn-equal">الغاء</a>
+
                 <button type="button" class="btn btn-success btn-equal" onclick="printAllPurchaseOrders()">
                     <i class="fas fa-file-pdf"></i> طباعة
                 </button>

@@ -17,3 +17,4 @@ D:\NewProject1\Domain\obj\Release\net8.0\Domain.dll
 D:\NewProject1\Domain\obj\Release\net8.0\refint\Domain.dll
 D:\NewProject1\Domain\obj\Release\net8.0\Domain.pdb
 D:\NewProject1\Domain\obj\Release\net8.0\ref\Domain.dll
+D:\NewProject1\Domain\obj\Release\net8.0\Domain.sourcelink.json

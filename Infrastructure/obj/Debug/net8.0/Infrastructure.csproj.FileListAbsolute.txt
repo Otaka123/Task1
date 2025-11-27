@@ -17,3 +17,4 @@ D:\NewProject1\Infrastructure\bin\Debug\net8.0\Domain.pdb
 D:\NewProject1\Infrastructure\bin\Debug\net8.0\ar\Domain.resources.dll
 D:\NewProject1\Infrastructure\bin\Debug\net8.0\en\Domain.resources.dll
 D:\NewProject1\Infrastructure\obj\Debug\net8.0\Infrastr.15EFFBFE.Up2Date
+D:\NewProject1\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json

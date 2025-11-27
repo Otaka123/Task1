@@ -17,3 +17,4 @@ D:\NewProject1\Application\obj\Release\net8.0\Application.dll
 D:\NewProject1\Application\obj\Release\net8.0\refint\Application.dll
 D:\NewProject1\Application\obj\Release\net8.0\Application.pdb
 D:\NewProject1\Application\obj\Release\net8.0\ref\Application.dll
+D:\NewProject1\Application\obj\Release\net8.0\Application.sourcelink.json

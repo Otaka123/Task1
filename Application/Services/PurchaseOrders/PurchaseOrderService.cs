@@ -184,8 +184,7 @@ namespace Application.Services.PurchaseOrders
                 if (createDto == null)
                     return RequestResponse<PurchaseOrderDto>.BadRequest("Purchase order data is required");
 
-                if (!createDto.Items.Any())
-                    return RequestResponse<PurchaseOrderDto>.BadRequest("At least one item is required");
+   
 
                 var nextNumber = await _NoService.GetNextPurchaseOrderNumberAsync();
 
@@ -251,8 +250,8 @@ namespace Application.Services.PurchaseOrders
                 if (updateDto.Id <= 0)
                     return RequestResponse<PurchaseOrderDto>.BadRequest("Valid purchase order ID is required");
 
-                if (!updateDto.Items.Any())
-                    return RequestResponse<PurchaseOrderDto>.BadRequest("At least one item is required");
+                //if (!updateDto.Items.Any())
+                //    return RequestResponse<PurchaseOrderDto>.BadRequest("At least one item is required");
 
                 // تحويل DTO إلى كائن PurchaseOrder
                 var purchaseOrder = new PurchaseOrder

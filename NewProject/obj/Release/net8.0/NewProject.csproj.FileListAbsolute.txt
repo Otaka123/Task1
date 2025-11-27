@@ -151,3 +151,4 @@ D:\NewProject1\NewProject\obj\Release\net8.0\refint\NewProject.dll
 D:\NewProject1\NewProject\obj\Release\net8.0\NewProject.pdb
 D:\NewProject1\NewProject\obj\Release\net8.0\NewProject.genruntimeconfig.cache
 D:\NewProject1\NewProject\obj\Release\net8.0\ref\NewProject.dll
+D:\NewProject1\NewProject\obj\Release\net8.0\NewProject.sourcelink.json

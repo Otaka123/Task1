@@ -146,7 +146,7 @@
                     <button type="submit" class="btn btn-rss me-2">
                         <i class="fa-solid fa-floppy-disk me-1"></i>حفظ
                     </button>
-                    <a class="btn btn-secondary" href="/Admin/PurchaseOrder">
+                    <a class="btn btn-secondary" asp-action="Index" >
                         رجوع<i class="fa-solid fa-arrow-left me-1"></i>
                     </a>
                 </div>
@@ -368,11 +368,7 @@
                 document.querySelector("#forma").addEventListener("submit", function (e) {
             const itemsCount = document.getElementById("Items").children.length;
 
-            if (itemsCount === 0) {
-                e.preventDefault();
-                alert("يجب إضافة على الأقل بند واحد");
-                return false;
-            }
+           
         });
         // Form submission validation
         // document.querySelector('form').addEventListener('submit', function(e) {

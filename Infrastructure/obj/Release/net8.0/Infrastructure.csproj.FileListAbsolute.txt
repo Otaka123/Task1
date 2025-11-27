@@ -17,3 +17,4 @@ D:\NewProject1\Infrastructure\obj\Release\net8.0\refint\Infrastructure.dll
 D:\NewProject1\Infrastructure\obj\Release\net8.0\Infrastructure.pdb
 D:\NewProject1\Infrastructure\obj\Release\net8.0\Infrastructure.genruntimeconfig.cache
 D:\NewProject1\Infrastructure\obj\Release\net8.0\ref\Infrastructure.dll
+D:\NewProject1\Infrastructure\obj\Release\net8.0\Infrastructure.sourcelink.json

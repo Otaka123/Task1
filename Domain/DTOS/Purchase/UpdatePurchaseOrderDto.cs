@@ -23,8 +23,7 @@ namespace Domain.DTOS.Purchase
 
         public bool HasVAT { get; set; } = false;
 
-        [Required(ErrorMessage = "يجب اضافة بند شراء واحد علي الاقل")]
-        [MinLength(1, ErrorMessage = "يجب اضافة بند شراء واحد علي الاقل")]
+   
         public List<CreatePurchaseOrderItemDto> Items { get; set; } = new List<CreatePurchaseOrderItemDto>();
     }
 }
